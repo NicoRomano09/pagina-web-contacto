@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Centro de contacto</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #faf7f0;
+      color: #000;
+    }
+    header, footer {
+      background-color: #000;
+      color: #fff;
+      padding: 1rem;
+      text-align: center;
+    }
+    nav {
+      background-color: #222;
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      padding: 1rem 0;
+    }
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      cursor: pointer;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      user-select: none;
+    }
+    nav a.active {
+      background-color: #f1c40f;
+      color: #000;
+    }
+    section {
+      padding: 2rem;
+      display: none;
+      max-width: 900px;
+      margin: 0 auto 2rem;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    section.active {
+      display: block;
+    }
+    h2 {
+      border-bottom: 2px solid #000;
+      padding-bottom: 0.5rem;
+    }
+    form input, form select, form textarea {
+      width: 100%;
+      padding: 0.5rem;
+      margin: 0.5rem 0 1rem 0;
+      border: 1px solid #333;
+      border-radius: 4px;
+      font-size: 1rem;
+      box-sizing: border-box;
+    }
+    form button {
+      background-color: #000;
+      color: #fff;
+      padding: 0.7rem 1.5rem;
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+      border-radius: 4px;
+      transition: background-color 0.3s ease;
+    }
+    form button:hover {
+      background-color: #333;
+    }
+    .productos {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      justify-content: center;
+    }
+    .productos img {
+      width: 260px;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 6px;
+      box-shadow: 0 1px 5px rgba(0,0,0,0.1);
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+    .productos img:hover {
+      transform: scale(1.05);
+    }
+    .leyenda {
+      font-size: 12px;
+      color: #555;
+      margin-top: 15px;
+      line-height: 1.3;
+    }
+    /* Modal para imagen ampliada */
+    #modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0,0,0,0.8);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      flex-direction: column;
+      padding: 1rem;
+      box-sizing: border-box;
+    }
+    #modal img {
+      max-width: 90vw;
+      max-height: 80vh;
+      border-radius: 8px;
+      box-shadow: 0 0 15px rgba(255,255,255,0.5);
+    }
+    #modal button {
+      margin-top: 1rem;
+      background: #f1c40f;
+      border: none;
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      border-radius: 4px;
+      color: #000;
+      transition: background-color 0.3s ease;
+    }
+    #modal button:hover {
+      background-color: #d4ac0d;
+    }
+    /* Lista de cobertura */
+    #cobertura ul {
+      list-style: disc inside;
+      max-width: 400px;
+      margin: 1rem auto 0;
+      padding-left: 0;
+      color: #222;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Centro de contacto</h1>
+    <p>Asesoramiento y ventas de sistemas de seguridad Prosegur</p>
+  </header>
+
+  <nav>
+    <a href="#" data-target="contacto" class="active">Contacto</a>
+    <a href="#" data-target="equipos">Equipos de seguridad</a>
+    <a href="#" data-target="cobertura">Cobertura</a>
+  </nav>
+
+  <section id="contacto" class="active">
+    <h2>Contacto</h2>
+    <form action="enviar.php" method="POST">
+      <label for="nombre">Nombre completo:</label>
+      <input type="text" id="nombre" name="nombre" required>
+
+      <label for="telefono">Teléfono / WhatsApp:</label>
+      <input type="text" id="telefono" name="telefono" required>
+
+      <label for="horarios">Horarios para contactarte:</label>
+      <input type="text" id="horarios" name="horarios" placeholder="Ej: Lunes a viernes de 8 a 21 hs" required>
+
+      <label for="zona">Localidad / Provincia:</label>
+      <input type="text" id="zona" name="zona" required>
+
+      <label for="tipo">Tipo de propiedad:</label>
+      <select id="tipo" name="tipo" required>
+        <option value="">--Seleccione--</option>
+        <option value="Casa">Casa</option>
+        <option value="Departamento">Departamento</option>
+        <option value="Local">Local</option>
+        <option value="Otro">Otro</option>
+      </select>
+
+      <label for="alarma">¿Tiene alarma actualmente?</label>
+      <select id="alarma" name="alarma" required>
+        <option value="">--Seleccione--</option>
+        <option value="Sí">Sí</option>
+        <option value="No">No</option>
+      </select>
+
+      <button type="submit">Enviar</button>
+    </form>
+    <div class="leyenda" role="note">
+      Los datos personales consignados en este formulario serán utilizados exclusivamente para contactarlo con fines comerciales vinculados a nuestros servicios de seguridad domiciliaria.<br>
+      Estos datos podrán ser compartidos con nuestro centro de atención telefónica.<br>
+      Usted tiene derecho a acceder, rectificar y suprimir sus datos conforme lo dispuesto por la Ley 25.326.<br>
+      Para ejercer estos derechos, puede enviar un correo a: consultas.seguridad.me@gmail.com indicando su nombre y la solicitud deseada.
+    </div>
+  </section>
+
+  <section id="equipos">
+    <h2>Equipos de seguridad</h2>
+    <div class="productos">
+      <img src="img/producto1.jpeg" alt="Producto 1" />
+      <img src="img/producto2.jpeg" alt="Producto 2" />
+      <img src="img/producto3.jpeg" alt="Producto 3" />
+      <img src="img/producto4.jpeg" alt="Producto 4" />
+      <img src="img/producto5.jpeg" alt="Producto 5" />
+    </div>
+  </section>
+
+  <section id="cobertura">
+    <h2>Cobertura</h2>
+    <p>Ofrecemos servicios en varias zonas del país. Consultanos para verificar si llegamos a tu domicilio o empresa.</p>
+    <ul>
+      <li>Resistencia</li>
+      <li>Tucumán</li>
+      <li>Córdoba</li>
+      <li>Río Cuarto</li>
+      <li>Santa Fe</li>
+      <li>Rosario</li>
+      <li>Mendoza</li>
+      <li>San Juan</li>
+      <li>Neuquén</li>
+      <li>Mar del Plata</li>
+      <li>Costa Atlántica</li>
+      <li>Bahía Blanca</li>
+      <li>AMBA</li>
+      <li>CABA y Municipios Aledaños</li>
+    </ul>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Centro de contacto. Todos los derechos reservados.</p>
+  </footer>
+
+  <!-- Modal para imagen ampliada -->
+  <div id="modal" aria-hidden="true" role="dialog" aria-label="Vista ampliada de imagen">
+    <img src="" alt="" />
+    <button id="cerrarModal" aria-label="Cerrar vista ampliada">Cerrar</button>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const enlaces = document.querySelectorAll('nav a');
+      const secciones = document.querySelectorAll('section');
+
+      function mostrarSeccion(id) {
+        secciones.forEach(sec => {
+          sec.classList.toggle('active', sec.id === id);
+        });
+
+        enlaces.forEach(enlace => {
+          enlace.classList.toggle('active', enlace.dataset.target === id);
+        });
+      }
+
+      enlaces.forEach(enlace => {
+        enlace.addEventListener('click', e => {
+          e.preventDefault();
+          mostrarSeccion(enlace.dataset.target);
+        });
+      });
+
+      // Mostrar por defecto la sección contacto
+      mostrarSeccion('contacto');
+
+      // Modal imágenes
+      const modal = document.getElementById('modal');
+      const modalImg = modal.querySelector('img');
+      const cerrarBtn = document.getElementById('cerrarModal');
+
+      document.querySelectorAll('.productos img').forEach(img => {
+        img.addEventListener('click', () => {
+          modalImg.src = img.src;
+          modalImg.alt = img.alt;
+          modal.style.display = 'flex';
+          modal.setAttribute('aria-hidden', 'false');
+          document.body.style.overflow = 'hidden'; // Evita scroll detrás
+        });
+      });
+
+      cerrarBtn.addEventListener('click', () => {
+        modal.style.display = 'none';
+        modal.setAttribute('aria-hidden', 'true');
+        modalImg.src = '';
+        modalImg.alt = '';
+        document.body.style.overflow = ''; // Restaura scroll
+      });
+
+      // Cerrar modal con ESC
+      document.addEventListener('keydown', e => {
+        if(e.key === 'Escape' && modal.style.display === 'flex'){
+          cerrarBtn.click();
+        }
+      });
+    });
+  </script>
+</body>
+</html>
